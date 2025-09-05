@@ -1,0 +1,45 @@
+<div class="container mt-4">
+  <h2 class="mb-3">Kelola Akun</h2>
+
+  <!-- Flash message -->
+  <% if (success && success.length > 0) { %>
+    <div class="alert alert-success"><%= success %></div>
+  <% } %>
+  <% if (error && error.length > 0) { %>
+    <div class="alert alert-danger"><%= error %></div>
+  <% } %>
+
+  <table class="table table-bordered table-hover align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach(user => { %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.username %></td>
+          <td>
+            <!-- Form untuk update role -->
+            <form action="/admin/users/<%= user.id %>?_method=PUT" method="POST" class="d-inline">
+              <select name="role" class="form-select form-select-sm" onchange="this.form.submit()">
+                <option value="user" <%= user.role === "user" ? "selected" : "" %>>User</option>
+                <option value="admin" <%= user.role === "admin" ? "selected" : "" %>>Admin</option>
+              </select>
+            </form>
+          </td>
+          <td>
+            <!-- Tombol hapus user -->
+            <form action="/admin/users/<%= user.id %>?_method=DELETE" method="POST" onsubmit="return confirm('Yakin ingin menghapus user ini?');" class="d-inline">
+              <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>

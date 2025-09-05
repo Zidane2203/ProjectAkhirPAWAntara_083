@@ -1,0 +1,50 @@
+<!-- views/index.ejs -->
+
+<div class="container mt-5 text-center text-light">
+  <h1 class="fw-bold mb-3">Blablalink NIKKE</h1>
+  <p class="lead">
+    Aplikasi web untuk mengelola <i>Guide</i> dan menampilkan daftar karakter dari game
+    <strong>Goddess of Victory: NIKKE</strong>.
+  </p>
+
+  <% if (!user) { %>
+    <p>
+      Silakan <a href="/auth/login" class="text-info">Login</a> atau 
+      <a href="/auth/register" class="text-warning">Register</a> untuk melanjutkan.
+    </p>
+  <% } %>
+
+  <!-- Fitur Utama -->
+  <div class="card bg-dark bg-opacity-50 shadow-lg mt-4 mx-auto" style="max-width: 800px;">
+    <div class="card-body">
+      <h3 class="fw-bold mb-3">Fitur Utama</h3>
+      <ul class="list-group list-group-flush text-start">
+        <li class="list-group-item bg-transparent text-light">
+          📌 CRUD <i>Guide</i> (Nama + Link) dengan database MySQL
+        </li>
+        <li class="list-group-item bg-transparent text-light">
+          📌 Menampilkan <i>Guide</i> dari array lokal
+        </li>
+        <li class="list-group-item bg-transparent text-light">
+          📌 Daftar lengkap karakter NIKKE (array statis)
+        </li>
+        <li class="list-group-item bg-transparent text-light">
+          📌 Desain responsif dengan <strong>Bootstrap 5</strong>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Tombol Navigasi Center -->
+  <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+    <a href="/guides" class="btn btn-primary">
+      📘 Guide (Database)
+    </a>
+    <a href="/characters" class="btn btn-dark">
+      🎮 Karakter NIKKE
+    </a>
+    <a href="/about" class="btn btn-info text-white">
+      ℹ️ Tentang Aplikasi
+    </a>
+  </div>
+</div>

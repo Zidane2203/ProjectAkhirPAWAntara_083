@@ -1,0 +1,68 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="/">Blablalink NIKKE</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/characters">Karakter NIKKE</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/guides">Guide DB</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">Tentang</a>
+        </li>
+
+        <% if (user && user.role === "admin") { %>
+          <li class="nav-item">
+            <a class="nav-link text-warning fw-bold" href="/admin">Kelola Akun</a>
+          </li>
+        <% } %>
+      </ul>
+
+      <ul class="navbar-nav ms-auto">
+        <% if (user) { %>
+          <!-- Jika user sudah login -->
+          <li class="nav-item d-flex align-items-center me-3">
+            <% if (user.profilePic) { %>
+              <img src="/uploads/<%= user.profilePic %>" 
+                   alt="Profile" 
+                   width="32" 
+                   height="32" 
+                   class="rounded-circle me-2">
+            <% } %>
+            <span class="navbar-text">
+              Halo, <strong><%= user.username %></strong> (<%= user.role %>)
+            </span>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-outline-light btn-sm" href="/auth/logout">Logout</a>
+          </li>
+        <% } else { %>
+          <!-- Jika user belum login -->
+          <li class="nav-item me-2">
+            <a class="btn btn-outline-light btn-sm" href="/auth/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-warning btn-sm" href="/auth/register">Register</a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>

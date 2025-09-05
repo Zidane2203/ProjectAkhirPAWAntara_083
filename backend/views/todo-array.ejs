@@ -1,0 +1,100 @@
+<h1 class="mb-4 text-center fw-bold">Daftar Karakter NIKKE</h1>
+
+<!-- Search box -->
+<div class="mb-4 text-center">
+  <input
+    type="text"
+    id="searchBox"
+    placeholder="Cari karakter..."
+    class="form-control w-50 mx-auto"
+    onkeyup="filterCharacters()"
+  >
+</div>
+
+<!-- Filter Role -->
+<div class="mb-3 text-center" id="roleFilters">
+  <strong>Role: </strong>
+  <button onclick="setFilter('role', '', this)" class="active">All</button>
+  <button onclick="setFilter('role', 'Attacker', this)">Attacker</button>
+  <button onclick="setFilter('role', 'Defender', this)">Defender</button>
+  <button onclick="setFilter('role', 'Supporter', this)">Supporter</button>
+</div>
+
+<!-- Filter BurstType -->
+<div class="mb-4 text-center" id="burstFilters">
+  <strong>Burst Type: </strong>
+  <button onclick="setFilter('burstType', '', this)" class="active">All</button>
+  <button onclick="setFilter('burstType', 'Burst I', this)">Burst I</button>
+  <button onclick="setFilter('burstType', 'Burst II', this)">Burst II</button>
+  <button onclick="setFilter('burstType', 'Burst III', this)">Burst III</button>
+</div>
+
+<!-- Filter Rarity -->
+<div class="mb-4 text-center" id="rarityFilters">
+  <strong>Rarity: </strong>
+  <button onclick="setFilter('rarity', '', this)" class="active">All</button>
+  <button onclick="setFilter('rarity', 'SSR', this)">SSR</button>
+  <button onclick="setFilter('rarity', 'SR', this)">SR</button>
+  <button onclick="setFilter('rarity', 'R', this)">R</button>
+</div>
+
+<!-- Card Grid -->
+<div class="row row-cols-2 row-cols-md-6 row-cols-lg-10 g-4" id="characterGrid">
+  <% characters.forEach(char => { %>
+    <div class="col" 
+         data-role="<%= char.role %>" 
+         data-bursttype="<%= char.burstType %>"
+         data-rarity="<%= char.rarity %>">
+      <div class="nikke-card h-100 <%= char.rarity %>">
+        <!-- Badge rarity -->
+        <span class="rarity-badge <%= char.rarity %>"><%= char.rarity %></span>
+        <!-- Badge role (pojok kiri atas) -->
+        <span class="role-badge <%= char.role %>"><%= char.role %></span>
+        <!-- Burst badge (kanan atas bawah rarity) -->
+        <span class="burst-badge <%= char.burstType %>"><%= char.burstType %></span>
+        <!-- Gambar karakter -->
+        <img src="<%= char.gambar %>" alt="<%= char.nama %>">
+        <div class="nikke-name"><%= char.nama %></div>
+      </div>
+    </div>
+  <% }) %>
+</div>
+
+<script>
+  const currentFilters = {
+    role: '',
+    burstType: '',
+    rarity: ''
+  };
+
+  function setFilter(type, value, btn) {
+    currentFilters[type] = value;
+
+    const containerId = type === 'role' ? 'roleFilters' : (type === 'burstType' ? 'burstFilters' : 'rarityFilters');
+    const container = document.getElementById(containerId);
+
+    Array.from(container.querySelectorAll('button')).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    filterCharacters();
+  }
+
+  function filterCharacters() {
+    const searchInput = document.getElementById('searchBox').value.toLowerCase().trim();
+    const cards = document.querySelectorAll('#characterGrid .col');
+
+    cards.forEach(card => {
+      const name = card.querySelector('.nikke-name').textContent.toLowerCase().trim();
+      const role = card.getAttribute('data-role');
+      const burstType = card.getAttribute('data-bursttype');
+      const rarity = card.getAttribute('data-rarity');
+
+      const matchesSearch = name.includes(searchInput);
+      const matchesRole = currentFilters.role === '' || role === currentFilters.role;
+      const matchesBurst = currentFilters.burstType === '' || burstType === currentFilters.burstType;
+      const matchesRarity = currentFilters.rarity === '' || rarity === currentFilters.rarity;
+
+      card.style.display = (matchesSearch && matchesRole && matchesBurst && matchesRarity) ? 'block' : 'none';
+    });
+  }
+</script>
