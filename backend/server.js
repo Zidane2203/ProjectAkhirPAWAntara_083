@@ -31,7 +31,7 @@ const { isAuthenticated } = require("./middlewares/authMiddleware");
 // Middleware
 // =======================
 app.use(cors({
-  origin: "http://localhost:3000", // React frontend
+  origin: "http://10.69.12.205:3000", // React frontend
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
