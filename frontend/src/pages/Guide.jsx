@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import GuideReport from "../components/GuideReport";
 
 const Guide = () => {
   const [guides, setGuides] = useState([]);
@@ -132,6 +134,25 @@ const Guide = () => {
           + Tambah Guide
         </button>
       )}
+      {/* Tombol PDF untuk semua user */}
+<div className="mt-6">
+  <PDFDownloadLink
+    document={<GuideReport guides={guides} />}
+    fileName="Daftar_Guide.pdf"
+  >
+    {({ loading }) =>
+      loading ? (
+        <button className="bg-gray-400 text-white px-5 py-2 rounded-xl">
+          Membuat PDF...
+        </button>
+      ) : (
+        <button className="bg-indigo-500 hover:bg-indigo-600 text-white px-5 py-2 rounded-xl shadow-lg transition hover:scale-105">
+          Download PDF
+        </button>
+      )
+    }
+  </PDFDownloadLink>
+</div>
     </div>
   );
 };

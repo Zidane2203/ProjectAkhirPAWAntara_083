@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api", // sesuaikan dengan backend-mu
+  baseURL: "http://10.69.9.185:3000/api", // sesuaikan dengan backend-mu
   withCredentials: true, // kalau pakai cookie JWT
 });
 

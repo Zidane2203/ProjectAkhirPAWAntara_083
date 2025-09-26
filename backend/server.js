@@ -31,7 +31,7 @@ const { isAuthenticated } = require("./middlewares/authMiddleware");
 // Middleware
 // =======================
 app.use(cors({
-  origin: "http://192.168.100.133:3000", // React frontend
+  origin: "http://localhost:3000", // React frontend
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
@@ -110,7 +110,7 @@ app.use("/api/admin", apiAdminRouter);     // Admin (JSON)
 // 404 handler
 // =======================
 app.use((req, res) => {
-  if (req.originalUrl.startsWith("/api/")) {
+  if (req.originalUrl.startsWith("/api")) {
     return res.status(404).json({ message: "API endpoint not found" });
   }
   res.status(404).render("404", { layout: "layouts/main-layout" });
